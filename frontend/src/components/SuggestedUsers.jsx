@@ -4,62 +4,35 @@ import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 const SuggestedUsers = () => {
-    const dispatch = useDispatch();
     const { suggestedUsers } = useSelector(store => store.auth);
-
-    // fetch suggested users on mount
-    useGetSuggestedUsers();
-
-    const followOrUnfollow = async (targetUserId) => {
-        try {
-            const res = await axios.put(
-                `https://instaclone-axnu.onrender.com/api/v1/user/follow/${targetUserId}`,
-                {},
-                { withCredentials: true }
-            );
-            if (res.data.success) {
-                // update suggestedUsers locally (optional: re-fetch)
-                const updatedUsers = suggestedUsers.map(user => {
-                    if (user._id === targetUserId) return { ...user, followed: !user.followed };
-                    return user;
-                });
-                dispatch(setSuggestedUsers(updatedUsers));
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     return (
         <div className='my-10'>
             <div className='flex items-center justify-between text-sm'>
                 <h1 className='font-semibold text-gray-600'>Suggested for you</h1>
                 <span className='font-medium cursor-pointer'>See All</span>
             </div>
-            {suggestedUsers.map(user => (
-                <div key={user._id} className='flex items-center justify-between my-5'>
-                    <div className='flex items-center gap-2'>
-                        <Link to={`/profile/${user._id}`}>
-                            <Avatar>
-                                <AvatarImage src={user.profilePicture} alt="profile" />
-                                <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
-                        </Link>
-                        <div>
-                            <h1 className='font-semibold text-sm'>
-                                <Link to={`/profile/${user._id}`}>{user.username}</Link>
-                            </h1>
-                            <span className='text-gray-600 text-sm'>{user.bio || 'Bio here...'}</span>
+            {
+                suggestedUsers.map((user) => {
+                    return (
+                        <div key={user._id} className='flex items-center justify-between my-5'>
+                            <div className='flex items-center gap-2'>
+                                <Link to={`/profile/${user?._id}`}>
+                                    <Avatar>
+                                        <AvatarImage src={user?.profilePicture} alt="post_image" />
+                                        <AvatarFallback>CN</AvatarFallback>
+                                    </Avatar>
+                                </Link>
+                                <div>
+                                    <h1 className='font-semibold text-sm'><Link to={`/profile/${user?._id}`}>{user?.username}</Link></h1>
+                                    <span className='text-gray-600 text-sm'>{user?.bio || 'Bio here...'}</span>
+                                </div>
+                            </div>
+                            <span className='text-[#3BADF8] text-xs font-bold cursor-pointer hover:text-[#3495d6]'>Follow</span>
                         </div>
-                    </div>
-                    <span
-                        className='text-[#3BADF8] text-xs font-bold cursor-pointer hover:text-[#3495d6]'
-                        onClick={() => followOrUnfollow(user._id)}
-                    >
-                        {user.followed ? 'Unfollow' : 'Follow'}
-                    </span>
-                </div>
-            ))}
+                    )
+                })
+            }
+
         </div>
     )
 }
