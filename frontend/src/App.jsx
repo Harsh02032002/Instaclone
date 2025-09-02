@@ -55,7 +55,7 @@ function App() {
 
   useEffect(() => {
   if (user) {
-    const socketio = io("https://instaclone-backend-1c5z.onrender.com/", {
+    const socketio = io("https://instaclone-axnu.onrender.com/", {
       query: { userId: user?._id },
       transports: ["websocket"],
     });

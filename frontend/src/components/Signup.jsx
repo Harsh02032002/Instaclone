@@ -25,7 +25,7 @@ const Signup = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await axios.post('https://instaclone-backend-1c5z.onrender.com/api/v1/user/register', input, {
+            const res = await axios.post('https://instaclone-axnu.onrender.com/api/v1/user/register', input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

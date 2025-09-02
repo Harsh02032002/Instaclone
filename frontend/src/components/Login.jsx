@@ -27,7 +27,7 @@ const Login = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "https://instaclone-backend-1c5z.onrender.com/api/v1/user/login",
+        "https://instaclone-axnu.onrender.com/api/v1/user/login",
         input,
         {
           headers: {
