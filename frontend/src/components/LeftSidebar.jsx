@@ -22,7 +22,7 @@ const LeftSidebar = () => {
     const logoutHandler = async () => {
         try {
             const res = await axios.get(
-              "https://instaclone-axnu.onrender.com/api/v1/user/logout",
+              "https://instaclone-63mb.vercel.app/api/v1/user/logout",
               { withCredentials: true }
             );
             if (res.data.success) {
