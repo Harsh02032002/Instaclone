@@ -75,7 +75,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      const socketio = io("https://instaclone-axnu.onrender.com", {
+      const socketio = io("https://instaclone-63mb.vercel.app", {
         query: {
           userId: user?._id,
         },
